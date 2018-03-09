@@ -1,0 +1,42 @@
+ {
+  "project_info": {
+    "project_number": "714389072187",
+    "firebase_url": "https://foood-eb756.firebaseio.com",
+    "project_id": "foood-eb756",
+    "storage_bucket": "foood-eb756.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:714389072187:android:678f4c6beaf3e352",
+        "android_client_info": {
+          "package_name": "com.example.admin.foood"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "714389072187-etsml9b8l0ecpareej1pgijicd6t1cdd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD_UILz-cRZeRstro8Rex9C-J_EcjsfEqw"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
