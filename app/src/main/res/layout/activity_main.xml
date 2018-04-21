@@ -16,17 +16,18 @@
 
     <ImageView
         android:layout_width="200dp"
-        android:layout_height="200dp"
+        android:layout_height="150dp"
         android:src="@drawable/khanalogo" />
 
     <TextView
         android:id="@+id/txtSlogan"
         android:layout_width="200dp"
-        android:layout_height="wrap_content"
+        android:layout_height="100dp"
         android:layout_gravity="center"
         android:text="@string/slogan"
-        android:textColor="@android:color/white"
-        android:textSize="24sp" />
+        android:textColor="@android:color/holo_blue_bright"
+        android:typeface="sans"
+        android:textSize="35sp" />
 
 </LinearLayout>
     <LinearLayout
