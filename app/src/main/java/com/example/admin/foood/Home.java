@@ -21,6 +21,7 @@ import android.widget.Toast;
 import com.example.admin.foood.Common.Common;
 import com.example.admin.foood.Interface.ItemClickListener;
 import com.example.admin.foood.Model.Category;
+import com.example.admin.foood.Model.Service.ListenOrder;
 import com.example.admin.foood.ViewHolder.MenuViewHolder;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.DatabaseReference;
@@ -87,7 +88,17 @@ public class Home extends AppCompatActivity
        layoutManager = new LinearLayoutManager(this);
        recycler_menu.setLayoutManager(layoutManager);
 
+       if (Common.isConnectedToInterner(this))
        loadMenu();
+       else
+       {
+           Toast.makeText(this,"Please check your connection !!",Toast.LENGTH_SHORT).show();
+           return;
+       }
+
+       //Register Service
+        Intent service = new Intent(Home.this, ListenOrder.class);
+        startService(service);
 
 
     }
@@ -134,7 +145,8 @@ public class Home extends AppCompatActivity
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-
+             if (item.getItemId() ==  R.id.refresh)
+                 loadMenu();
 
         return super.onOptionsItemSelected(item);
     }

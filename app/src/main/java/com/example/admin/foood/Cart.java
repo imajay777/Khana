@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -66,7 +67,10 @@ public class Cart extends AppCompatActivity {
         btnPlace.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(cart.size() > 0)
                 showAlertDialog();
+                else
+                    Toast.makeText(Cart.this,"Your cart is empty !!! ", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -92,8 +96,8 @@ public class Cart extends AppCompatActivity {
                         //Create new request
                         Request request = new Request(
                                 Common.currentUser.getPhone(),
-                                Common.currentUser.getName(),
                                 edtAddress.getText().toString(),
+                                Common.currentUser.getName(),
                                 txtTotalPrice.getText().toString(),
                                 cart
 
@@ -122,6 +126,7 @@ public class Cart extends AppCompatActivity {
     private void loadListFood() {
         cart = new Database(this).getCarts();
         adapter = new CartAdapter(cart,this);
+        adapter.notifyDataSetChanged();
         recyclerView.setAdapter(adapter);
 
 
@@ -133,5 +138,25 @@ public class Cart extends AppCompatActivity {
         NumberFormat fmt = NumberFormat.getCurrencyInstance(locale);
 
         txtTotalPrice.setText(fmt.format(total));
+    }
+
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        if (item.getTitle().equals(Common.DELETE))
+            deleteCart(item.getOrder());
+        return true;
+    }
+
+    private void deleteCart(int position) {
+        //We will remove item at List<Order> by position
+        cart.remove(position);
+        //After this, we will delete all old data from SQLite
+        new Database(this).cleanCart();
+        //Add final, we will update new data from List<>Order to SQLite
+        for (Order item:cart)
+            new Database(this).addToCart(item);
+        //Refresh
+        loadListFood();
     }
 }

@@ -3,6 +3,7 @@ package com.example.admin.foood.ViewHolder;
 import android.content.Context;
 import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.amulyakhare.textdrawable.TextDrawable;
+import com.example.admin.foood.Common.Common;
 import com.example.admin.foood.Interface.ItemClickListener;
 import com.example.admin.foood.Model.Order;
 import com.example.admin.foood.R;
@@ -23,7 +25,8 @@ import java.util.Locale;
  * Created by admin on 3/17/2018.
  */
 
-class CardViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+class CardViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener
+   , View.OnCreateContextMenuListener {
 
 
     public TextView txt_cart_name,txt_price;
@@ -40,11 +43,19 @@ class CardViewHolder extends RecyclerView.ViewHolder implements View.OnClickList
         txt_cart_name = (TextView) itemView.findViewById(R.id.cart_item_name);
         txt_price = (TextView) itemView.findViewById(R.id.cart_item_name);
         img_cart_count = (ImageView)itemView.findViewById(R.id.cart_item_count);
+
+        itemView.setOnCreateContextMenuListener(this);
     }
 
     @Override
     public void onClick(View view) {
 
+    }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View view, ContextMenu.ContextMenuInfo menuInfo) {
+        menu.setHeaderTitle("Select action");
+        menu.add(0,0,getAdapterPosition(), Common.DELETE);
     }
 }
 

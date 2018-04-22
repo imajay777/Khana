@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import com.example.admin.foood.Common.Common;
 import com.example.admin.foood.Interface.ItemClickListener;
 import com.example.admin.foood.Model.Food;
 import com.example.admin.foood.ViewHolder.FoodViewHolder;
@@ -48,7 +49,13 @@ public class FoodList extends AppCompatActivity {
             categoryId = getIntent().getStringExtra("CategoryId");
         if(!categoryId.isEmpty() && categoryId != null)
         {
+            if (Common.isConnectedToInterner(getBaseContext()))
             loadListFood(categoryId);
+            else
+            {
+                Toast.makeText(FoodList.this,"Please check your connection !!",Toast.LENGTH_SHORT).show();
+                return;
+            }
         }
     }
 
@@ -56,7 +63,7 @@ public class FoodList extends AppCompatActivity {
         adapter = new FirebaseRecyclerAdapter<Food, FoodViewHolder>(Food.class,
                 R.layout.food_item,
                 FoodViewHolder.class,
-                foodList.orderByChild("MenuId").equalTo(categoryId)
+                foodList.orderByChild("menuId").equalTo(categoryId)
                 ) {
             @Override
             protected void populateViewHolder(FoodViewHolder viewHolder, Food model, int position) {

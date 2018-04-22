@@ -40,46 +40,53 @@ public class SignIn extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                final ProgressDialog mDialog = new ProgressDialog(SignIn.this);
-                mDialog.setMessage("Please waiting..");
-                mDialog.show();
+                if (Common.isConnectedToInterner(getBaseContext())) {
 
-             table_user.addValueEventListener(new ValueEventListener() {
-                 @Override
-                 public void onDataChange(DataSnapshot dataSnapshot) {
-                     //check if user not in database
-                     if (dataSnapshot.child(editPhone.getText().toString()).exists()) {
+                    final ProgressDialog mDialog = new ProgressDialog(SignIn.this);
+                    mDialog.setMessage("Please waiting..");
+                    mDialog.show();
 
-                         //get user info
-                         mDialog.dismiss();
-                         User user = dataSnapshot.child(editPhone.getText().toString()).getValue(User.class);
-                         user.setPhone(editPhone.getText().toString()); //set Phone
-                         if (user.getpassword().equals(editPassword.getText().toString())) {
+                    table_user.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            //check if user not in database
+                            if (dataSnapshot.child(editPhone.getText().toString()).exists()) {
 
-                             {
-                                 Intent homeIntent = new Intent(SignIn.this,Home.class);
-                                 Common.currentUser = user;
-                                 startActivity(homeIntent);
-                                 finish();
-                             }
+                                //get user info
+                                mDialog.dismiss();
+                                User user = dataSnapshot.child(editPhone.getText().toString()).getValue(User.class);
+                                user.setPhone(editPhone.getText().toString()); //set Phone
+                                if (user.getpassword().equals(editPassword.getText().toString())) {
 
-                         } else {
-                             Toast.makeText(SignIn.this, "Wrong password!", Toast.LENGTH_SHORT).show();
-                         }
-                     }
-                     else 
-                     {
-                         mDialog.dismiss();
-                         Toast.makeText(SignIn.this, "User doesn't exist! in database", Toast.LENGTH_SHORT).show();
-                     }
-                 }
+                                    {
+                                        Intent homeIntent = new Intent(SignIn.this, Home.class);
+                                        Common.currentUser = user;
+                                        startActivity(homeIntent);
+                                        finish();
+                                    }
 
-                 @Override
-                 public void onCancelled(DatabaseError databaseError) {
+                                } else {
+                                    Toast.makeText(SignIn.this, "Wrong password!", Toast.LENGTH_SHORT).show();
+                                }
+                            } else {
+                                mDialog.dismiss();
+                                Toast.makeText(SignIn.this, "User doesn't exist! in database", Toast.LENGTH_SHORT).show();
+                            }
+                        }
 
-                 }
-             });
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
+                }
+                else
+                {
+                    Toast.makeText(SignIn.this,"Please check your connection !!",Toast.LENGTH_SHORT).show();
+                    return;
+                }
             }
+
         });
 
     }
