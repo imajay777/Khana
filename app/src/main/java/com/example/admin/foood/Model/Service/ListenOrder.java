@@ -53,11 +53,11 @@ public class ListenOrder extends Service implements ChildEventListener {
     @Override
     public void onChildChanged(DataSnapshot dataSnapshot, String s) {
          //Trigger here
-        Request request = dataSnapshot.getValue(Request.class);
-        showNotification(dataSnapshot.getKey(),request);
+       // Request request = dataSnapshot.getValue(Request.class);
+       // showNotification(dataSnapshot.getKey(),request);
     }
 
-    private void showNotification(String key, Request request) {
+   /* private void showNotification(String key, Request request) {
         Intent intent = new Intent(getBaseContext(), OrderStatus.class);
         intent.putExtra("userPhone",request.getPhone());
         PendingIntent contentIntent = PendingIntent.getActivity(getBaseContext(),0,intent,PendingIntent.FLAG_UPDATE_CURRENT);
@@ -76,10 +76,11 @@ public class ListenOrder extends Service implements ChildEventListener {
 
 
         NotificationManager notificationManager = (NotificationManager)getBaseContext().getSystemService(Context.NOTIFICATION_SERVICE);
+        assert notificationManager != null;
         notificationManager.notify(1,builder.build());
 
     }
-
+*/
     @Override
     public void onChildRemoved(DataSnapshot dataSnapshot) {
 

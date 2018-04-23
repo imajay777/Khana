@@ -28,9 +28,8 @@
         <activity android:name=".OrderStatus" />
 
         <service
-            android:name=".Model.Service.ListenOrder"
+            android:name="com.example.admin.foood.Model.Service.ListenOrder"
             android:enabled="true"
             android:exported="true"></service>
     </application>
-
 </manifest>
